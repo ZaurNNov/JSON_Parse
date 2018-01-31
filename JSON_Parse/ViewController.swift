@@ -58,6 +58,8 @@ struct Country: Decodable {
     let name: String
     let capital: String
     let population: UInt
+    let topLevelDomain: [String]
+    let translations: [String: String] = [:]
     
 //    init?(json: [String: Any]) {
 //
@@ -195,6 +197,11 @@ class ViewController: UIViewController {
                 
                 for names in self.country {
                     print(names.name + " Capital: " + names.capital + ", Population: \(names.population) peoples")
+                    print("topLevelDomain: " + names.topLevelDomain.reduce("", {$1 + $0}))
+                    var dict = (names.translations.flatMap({(key, value) -> String in
+                        return "\(key)=\(value)"
+                    }) as Array).joined(separator: ";")
+                    print(dict.description)
                 }
             }
             catch {
@@ -214,7 +221,6 @@ class ViewController: UIViewController {
 //                print("Error self.news")
 //            }
 //            }.resume()
-        
     }
 }
 
